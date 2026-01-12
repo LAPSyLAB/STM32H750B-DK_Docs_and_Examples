@@ -1,0 +1,253 @@
+#include "main.h"
+#include "stm32_lcd.h"
+
+#define GRID_X        50
+#define GRID_Y        50
+#define GRID_SIZE     220
+#define CELL_SIZE     (GRID_SIZE / 3)
+#define LINE_THICKNESS 3
+
+#define EMPTY 0
+#define PLAYER_X 1
+#define PLAYER_O 2
+
+// GPIO base addresses
+#define RCC_AHB4ENR   ((volatile uint32_t*)0x580244E0)
+
+#define GPIOD_MODER   ((volatile uint32_t*)0x58020C00)
+#define GPIOD_ODR     ((volatile uint32_t*)0x58020C14)
+
+#define GPIOJ_MODER   ((volatile uint32_t*)0x58022400)
+#define GPIOJ_ODR     ((volatile uint32_t*)0x58022414)
+
+#define GPIOI_MODER   ((volatile uint32_t*)0x58022000)
+#define GPIOI_ODR     ((volatile uint32_t*)0x58022014)
+
+extern int gameBoard[3][3];
+extern int currentPlayer;
+extern TS_Init_t hTS;
+
+// === LED FUNCTIONS ===
+void LED_Init(void) {
+    *RCC_AHB4ENR |= (1 << 3) | (1 << 9) | (1 << 8); // D,J,I
+
+    *GPIOD_MODER &= ~(1 << 7); *GPIOD_MODER |= (1 << 6); // PD3 output
+    *GPIOJ_MODER &= ~(1 << 5); *GPIOJ_MODER |= (1 << 4); // PJ2 output
+    *GPIOI_MODER &= ~(1 << 27); *GPIOI_MODER |= (1 << 26); // PI13 output
+
+    *GPIOD_ODR &= ~(1 << 3); // PD3 off
+    *GPIOJ_ODR |= (1 << 2);  // PJ2 off
+    *GPIOI_ODR |= (1 << 13); // PI13 off
+}
+
+void LED_SetTurn(int player) {
+    // Reset all LEDs
+    *GPIOI_ODR |= (1 << 13);
+    *GPIOJ_ODR |= (1 << 2);
+    *GPIOD_ODR &= ~(1 << 3);
+
+    if (player == PLAYER_X) {
+        *GPIOI_ODR &= ~(1 << 13); // PI13 ON
+    } else if (player == PLAYER_O) {
+        *GPIOJ_ODR &= ~(1 << 2);  // PJ2 ON
+    }
+}
+
+void LED_GameOver(void) {
+    *GPIOI_ODR &= ~(1 << 13); // PI13 ON
+    *GPIOJ_ODR &= ~(1 << 2);  // PJ2 ON
+    *GPIOD_ODR |= (1 << 3);   // PD3 ON
+}
+
+// === GAME FUNCTIONS ===
+int CheckWinner(void) {
+    for (int i = 0; i < 3; i++) {
+        if (gameBoard[i][0] != EMPTY &&
+            gameBoard[i][0] == gameBoard[i][1] &&
+            gameBoard[i][1] == gameBoard[i][2]) {
+            return gameBoard[i][0];
+        }
+    }
+
+    for (int i = 0; i < 3; i++) {
+        if (gameBoard[0][i] != EMPTY &&
+            gameBoard[0][i] == gameBoard[1][i] &&
+            gameBoard[1][i] == gameBoard[2][i]) {
+            return gameBoard[0][i];
+        }
+    }
+
+    if (gameBoard[0][0] != EMPTY &&
+        gameBoard[0][0] == gameBoard[1][1] &&
+        gameBoard[1][1] == gameBoard[2][2]) {
+        return gameBoard[0][0];
+    }
+
+    if (gameBoard[0][2] != EMPTY &&
+        gameBoard[0][2] == gameBoard[1][1] &&
+        gameBoard[1][1] == gameBoard[2][0]) {
+        return gameBoard[0][2];
+    }
+
+    return 0;
+}
+
+void Display_Init(void) {
+    uint32_t x_size, y_size;
+
+    BSP_LCD_Init(0, LCD_ORIENTATION_LANDSCAPE);
+    BSP_LCD_GetXSize(0, &x_size);
+    BSP_LCD_GetYSize(0, &y_size);
+
+    hTS.Width = x_size;
+    hTS.Height = y_size;
+    hTS.Orientation = TS_SWAP_XY;
+    hTS.Accuracy = 5;
+
+    UTIL_LCD_SetFuncDriver(&LCD_Driver);
+    UTIL_LCD_SetLayer(0);
+    UTIL_LCD_SetFont(&Font16);
+    UTIL_LCD_SetBackColor(UTIL_LCD_COLOR_BLACK);
+    UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_WHITE);
+    UTIL_LCD_Clear(UTIL_LCD_COLOR_BLACK);
+
+    if (BSP_TS_Init(0, &hTS) != BSP_ERROR_NONE) {
+        UTIL_LCD_DisplayStringAt(0, 220, (uint8_t*)"Touch Init Failed!", CENTER_MODE);
+        while (1);
+    }
+
+    UTIL_LCD_SetFont(&Font24);
+    UTIL_LCD_DisplayStringAt(0, 10, (uint8_t*)"TIC TAC TOE", CENTER_MODE);
+    UTIL_LCD_SetFont(&Font16);
+    UTIL_LCD_DisplayStringAt(0, 300, (uint8_t*)"Touch a square to play!", CENTER_MODE);
+}
+
+void DrawGrid(void) {
+    UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_BLACK);
+    UTIL_LCD_FillRect(GRID_X, GRID_Y, GRID_SIZE, GRID_SIZE, UTIL_LCD_COLOR_BLACK);
+
+    UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_WHITE);
+
+    UTIL_LCD_FillRect(GRID_X + CELL_SIZE - LINE_THICKNESS/2, GRID_Y,
+                     LINE_THICKNESS, GRID_SIZE, UTIL_LCD_COLOR_WHITE);
+    UTIL_LCD_FillRect(GRID_X + 2*CELL_SIZE - LINE_THICKNESS/2, GRID_Y,
+                     LINE_THICKNESS, GRID_SIZE, UTIL_LCD_COLOR_WHITE);
+
+    UTIL_LCD_FillRect(GRID_X, GRID_Y + CELL_SIZE - LINE_THICKNESS/2,
+                     GRID_SIZE, LINE_THICKNESS, UTIL_LCD_COLOR_WHITE);
+    UTIL_LCD_FillRect(GRID_X, GRID_Y + 2*CELL_SIZE - LINE_THICKNESS/2,
+                     GRID_SIZE, LINE_THICKNESS, UTIL_LCD_COLOR_WHITE);
+}
+
+void DrawSymbol(int row, int col, int symbol) {
+    int x = GRID_X + col * CELL_SIZE;
+    int y = GRID_Y + row * CELL_SIZE;
+    int padding = 10;
+
+    if (symbol == PLAYER_X) {
+        UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_RED);
+        UTIL_LCD_DrawLine(x + padding, y + padding,
+                         x + CELL_SIZE - padding, y + CELL_SIZE - padding,
+                         UTIL_LCD_COLOR_RED);
+        UTIL_LCD_DrawLine(x + CELL_SIZE - padding, y + padding,
+                         x + padding, y + CELL_SIZE - padding,
+                         UTIL_LCD_COLOR_RED);
+    } else if (symbol == PLAYER_O) {
+        UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_BLUE);
+        UTIL_LCD_DrawCircle(x + CELL_SIZE/2, y + CELL_SIZE/2,
+                           CELL_SIZE/2 - padding, UTIL_LCD_COLOR_BLUE);
+    }
+}
+
+void DrawBoard(void) {
+    DrawGrid();
+
+    for (int row = 0; row < 3; row++) {
+        for (int col = 0; col < 3; col++) {
+            if (gameBoard[row][col] != EMPTY) {
+                DrawSymbol(row, col, gameBoard[row][col]);
+            }
+        }
+    }
+
+    UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_BLACK);
+    UTIL_LCD_FillRect(0, 280, 320, 20, UTIL_LCD_COLOR_BLACK);
+    UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_WHITE);
+
+
+    LED_SetTurn(currentPlayer);
+}
+
+void HandleTouchInput(void) {
+    TS_State_t ts;
+    BSP_TS_GetState(0, &ts);
+
+    if (ts.TouchDetected) {
+        uint16_t x = ts.TouchX;
+        uint16_t y = ts.TouchY;
+
+        if (x >= GRID_X && x <= (GRID_X + GRID_SIZE) &&
+            y >= GRID_Y && y <= (GRID_Y + GRID_SIZE)) {
+
+            int col = (x - GRID_X) / CELL_SIZE;
+            int row = (y - GRID_Y) / CELL_SIZE;
+
+            if (gameBoard[row][col] == EMPTY) {
+                gameBoard[row][col] = currentPlayer;
+
+                DrawBoard();
+
+                int winner = CheckWinner();
+                if (winner) {
+                    HAL_Delay(1000);
+                    UTIL_LCD_Clear(UTIL_LCD_COLOR_BLACK);
+
+                    UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_GREEN);
+                    UTIL_LCD_SetFont(&Font24);
+
+                    if (winner == PLAYER_X) {
+                        UTIL_LCD_DisplayStringAt(0, 120, (uint8_t*)"X WINS!", CENTER_MODE);
+                    } else {
+                        UTIL_LCD_DisplayStringAt(0, 120, (uint8_t*)"O WINS!", CENTER_MODE);
+                    }
+
+                    UTIL_LCD_SetFont(&Font16);
+
+                    // === LEDs for game over ===
+                    LED_GameOver();
+                    return;
+                }
+
+                if (currentPlayer == PLAYER_X) {
+                    currentPlayer = PLAYER_O;
+                } else {
+                    currentPlayer = PLAYER_X;
+                }
+
+                DrawBoard();
+            }
+        }
+
+        while (ts.TouchDetected) {
+            HAL_Delay(50);
+            BSP_TS_GetState(0, &ts);
+        }
+    }
+}
+
+void ResetGame(void) {
+    for (int row = 0; row < 3; row++) {
+        for (int col = 0; col < 3; col++) {
+            gameBoard[row][col] = EMPTY;
+        }
+    }
+
+    currentPlayer = PLAYER_X;
+
+    UTIL_LCD_Clear(UTIL_LCD_COLOR_BLACK);
+    Display_Init();
+    DrawBoard();
+
+    LED_SetTurn(currentPlayer);
+}
+

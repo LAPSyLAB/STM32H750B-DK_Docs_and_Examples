@@ -1,0 +1,7 @@
+
+Za pravilno delovanje kode je potrebno uporabiti projekt bsp23_v2. V okviru tega projekta sledite naslednjim korakom:
+
+	1.	V projektu bsp23_v2 odprite mapo Core.
+	2.	V mapi Core zamenjajte vsebino direktorijev Inc in Src s predloženimi datotekami.
+
+Po zamenjavi in pogonu kode se bo na plošči začel prikaz termo kamere.

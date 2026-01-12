@@ -1,0 +1,624 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Name": "Screen1",
+        "Components": [
+          {
+            "Type": "TiledImage",
+            "Name": "background",
+            "Width": 480,
+            "Height": 272,
+            "LockPosition": true,
+            "FileName": "__generated\\alternate_theme_images_textures_seamless_texture_6.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "difficultyButton",
+            "X": 209,
+            "Y": 228,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_on_action.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_rounded_small_off_dark.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button2",
+            "X": 310,
+            "Y": 51,
+            "Width": 120,
+            "Height": 120,
+            "Pressed": "game2-min.png",
+            "Released": "game2-min.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button1",
+            "X": 50,
+            "Y": 51,
+            "Width": 120,
+            "Height": 120,
+            "Pressed": "game1-min.png",
+            "Released": "game1-min.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 142,
+            "Y": 11,
+            "Width": 197,
+            "Height": 17,
+            "TextId": "__SingleUse_YGF7",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 50,
+            "Y": 171,
+            "Width": 120,
+            "Height": 57,
+            "TextId": "__SingleUse_XLAL",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "WideTextAction": 1
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2_2",
+            "X": 180,
+            "Y": 206,
+            "Width": 120,
+            "Height": 16,
+            "TextId": "__SingleUse_A5GU",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "WideTextAction": 1
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2_2_1",
+            "X": 271,
+            "Y": 228,
+            "Width": 91,
+            "Height": 44,
+            "TextId": "__SingleUse_6MTT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "WideTextAction": 1
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2_2_1_1",
+            "X": 118,
+            "Y": 228,
+            "Width": 91,
+            "Height": 44,
+            "TextId": "__SingleUse_44ON",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "WideTextAction": 1
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2_1",
+            "X": 310,
+            "Y": 171,
+            "Width": 120,
+            "Height": 57,
+            "TextId": "__SingleUse_1RCZ",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "WideTextAction": 1
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "game1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen2"
+            }
+          },
+          {
+            "InteractionName": "toggleDifficulty",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "difficultyButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "toggleDifficulty"
+            }
+          },
+          {
+            "InteractionName": "game2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button2"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen3"
+            }
+          },
+          {
+            "InteractionName": "getTick1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "getTick"
+            }
+          },
+          {
+            "InteractionName": "getTick2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button2"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "getTick"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Screen2",
+        "Components": [
+          {
+            "Type": "TiledImage",
+            "Name": "background2",
+            "Width": 480,
+            "Height": 272,
+            "LockPosition": true,
+            "FileName": "__generated\\alternate_theme_images_textures_seamless_texture_6.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "target",
+            "X": 190,
+            "Y": 117,
+            "Width": 50,
+            "Height": 50,
+            "Visible": false,
+            "Pressed": "target50-min.png",
+            "Released": "target50-min.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 129,
+            "Y": 203,
+            "Width": 222,
+            "Height": 36,
+            "Visible": false,
+            "TextId": "__SingleUse_QS3P",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_1H4C",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "home",
+            "X": 430,
+            "Width": 50,
+            "Height": 50,
+            "Visible": false,
+            "Pressed": "__generated\\icon_theme_images_action_home_50_50_A67B11.svg.png",
+            "Released": "__generated\\icon_theme_images_action_home_50_50_FEBD17.svg.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "restart",
+            "X": 185,
+            "Y": 142,
+            "Width": 110,
+            "Height": 50,
+            "Visible": false,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_tiny_rounded_action.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_tiny_rounded_action.png",
+            "IconPressed": "__generated\\icon_theme_images_av_replay_circle_filled_50_50_000000.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_av_replay_50_50_000000.svg.png",
+            "IconX": 30,
+            "IconHeight": 50,
+            "IconWidth": 50
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "targetClick",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "target"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "targetClicked"
+            }
+          },
+          {
+            "InteractionName": "SetSize",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 10
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "setDifficulty"
+            }
+          },
+          {
+            "InteractionName": "resetGame",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "restart"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "reset"
+            }
+          },
+          {
+            "InteractionName": "goHome",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "home"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Screen3",
+        "Components": [
+          {
+            "Type": "Button",
+            "Name": "button1",
+            "X": -50,
+            "Y": 222,
+            "Width": 50,
+            "Height": 50,
+            "Visible": false,
+            "LockPosition": true,
+            "Pressed": "__generated\\icon_theme_images_maps_transit_enterexit_50_50_000000.svg.png",
+            "Released": "__generated\\icon_theme_images_maps_transit_enterexit_50_50_000000.svg.png"
+          },
+          {
+            "Type": "TiledImage",
+            "Name": "background3",
+            "Width": 480,
+            "Height": 272,
+            "LockPosition": true,
+            "FileName": "__generated\\alternate_theme_images_textures_seamless_texture_6.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 30,
+            "Y": 212,
+            "Width": 421,
+            "Height": 49,
+            "Visible": false,
+            "TextId": "__SingleUse_9VPV",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "w1",
+              "UseBuffer": true,
+              "BufferSize": 16
+            },
+            "Wildcard2": {
+              "TextId": "w2",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "home",
+            "X": 430,
+            "Width": 50,
+            "Height": 50,
+            "Visible": false,
+            "Pressed": "__generated\\icon_theme_images_action_home_50_50_A67B11.svg.png",
+            "Released": "__generated\\icon_theme_images_action_home_50_50_FEBD17.svg.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "restart",
+            "X": 185,
+            "Y": 142,
+            "Width": 110,
+            "Height": 50,
+            "Visible": false,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_tiny_rounded_action.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_tiny_rounded_action.png",
+            "IconPressed": "__generated\\icon_theme_images_av_replay_circle_filled_50_50_000000.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_av_replay_50_50_000000.svg.png",
+            "IconX": 30,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
+            "Type": "Button",
+            "Name": "target",
+            "X": 190,
+            "Y": 117,
+            "Width": 50,
+            "Height": 50,
+            "Visible": false,
+            "Pressed": "target50-min.png",
+            "Released": "target50-min.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "fade",
+            "X": 198,
+            "Y": 220,
+            "Width": 84,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "__SingleUse_4ND0",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_U6OQ",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "timer",
+            "X": 218,
+            "Y": 13,
+            "Width": 44,
+            "Height": 22,
+            "TextId": "__SingleUse_CPEK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_BZSO",
+              "UseBuffer": true,
+              "BufferSize": 5
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "setSize",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 10
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "setDifficulty"
+            }
+          },
+          {
+            "InteractionName": "targetClick",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "target"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "targetClicked"
+            }
+          },
+          {
+            "InteractionName": "resetGame",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "restart"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "reset"
+            }
+          },
+          {
+            "InteractionName": "goHome",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "home"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          },
+          {
+            "InteractionName": "move",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "target"
+            },
+            "Action": {
+              "Type": "ActionMove",
+              "X": 198,
+              "Y": 250,
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "Duration": 300,
+              "ActionComponent": "fade"
+            }
+          },
+          {
+            "InteractionName": "fadeText",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "target"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Alpha": 0,
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "Duration": 300,
+              "ActionComponent": "fade"
+            }
+          },
+          {
+            "InteractionName": "reappearText",
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "fadeText"
+            },
+            "Action": {
+              "Type": "ActionFade",
+              "Easing": "Linear",
+              "EasingOption": "In",
+              "ActionComponent": "fade"
+            }
+          },
+          {
+            "InteractionName": "hide",
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "fadeText"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "fade"
+            }
+          }
+        ]
+      }
+    ],
+    "CustomContainerDefinitions": [],
+    "Name": "ReactionTimer",
+    "Resolution": {
+      "Width": 480,
+      "Height": 272
+    },
+    "SelectedColorDepth": 16,
+    "StartupScreenName": "Screen1",
+    "SelectedStartupLanguage": "GB",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      16
+    ],
+    "AvailableLCDs": {
+      "16": "LCD16bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 480,
+        "Height": 272
+      }
+    ],
+    "PhysicalButtons": [],
+    "FrameworkFeatures": {
+      "LCD16bpp": {
+        "Id": "LCD16bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommandOverride": "make -f ../gcc/Makefile -j8",
+    "FlashTargetCommandOverride": "make -f ../gcc/Makefile flash",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Landscape",
+    "Family": "STM32H7",
+    "SubFamily": "STM32H750 Value line",
+    "Toolchain": "STM32CubeIDE",
+    "Platform": "m7",
+    "ProjectFile": "../STM32H750B-DK.ioc",
+    "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
+    "OptionalComponents": [],
+    "AdditionalFeatures": [
+      "CWRVector",
+      "VectorFonts",
+      "Video"
+    ]
+  },
+  "Version": "4.25.0",
+  "CreatedBy": "4.25.0"
+}

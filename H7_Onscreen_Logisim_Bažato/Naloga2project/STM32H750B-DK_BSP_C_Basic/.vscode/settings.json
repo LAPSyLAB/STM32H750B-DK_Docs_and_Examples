@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.rmd": "markdown",
+        "*.c": "c",
+        "stm32_lcd.h": "c",
+        "compare": "c"
+    }
+}

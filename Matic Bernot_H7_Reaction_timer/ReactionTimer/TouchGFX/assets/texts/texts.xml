@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.25.0">
+  <Languages>
+    <Language Id="GB" />
+  </Languages>
+  <Texts>
+    <TextGroup Id="Group1" />
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_44ON" Alignment="Center" TypographyId="text">
+        <Translation Language="GB">Lahka&#10;(velike tarče)</Translation>
+      </Text>
+      <Text Id="__SingleUse_6MTT" Alignment="Center" TypographyId="text">
+        <Translation Language="GB">Težka&#10;(majhne tarče)</Translation>
+      </Text>
+      <Text Id="__SingleUse_A5GU" Alignment="Center" TypographyId="text">
+        <Translation Language="GB">TEŽAVNOST</Translation>
+      </Text>
+      <Text Id="__SingleUse_1RCZ" Alignment="Center" TypographyId="text">
+        <Translation Language="GB">Koliko tarč lahko zadanete v 30 sekundah?</Translation>
+      </Text>
+      <Text Id="__SingleUse_XLAL" Alignment="Center" TypographyId="text">
+        <Translation Language="GB">Kako hitro lahko zadanete tarčo?</Translation>
+      </Text>
+      <Text Id="__SingleUse_YGF7" Alignment="Center" TypographyId="title">
+        <Translation Language="GB">TEST REAKCIJSKEGA ČASA</Translation>
+      </Text>
+      <Text Id="w2" Alignment="Left" TypographyId="Counter">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_BZSO" Alignment="Left" TypographyId="Counter">
+        <Translation Language="GB">30</Translation>
+      </Text>
+      <Text Id="__SingleUse_CPEK" Alignment="Center" TypographyId="Counter">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_U6OQ" Alignment="Left" TypographyId="Counter">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_4ND0" Alignment="Left" TypographyId="Counter">
+        <Translation Language="GB">&lt;value&gt; ms</Translation>
+      </Text>
+      <Text Id="w1" Alignment="Left" TypographyId="Counter">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_9VPV" Alignment="Center" TypographyId="Counter">
+        <Translation Language="GB">Zadeli ste &lt;value&gt; tarč.&#10;Povprečen reakcijski čas na tarčo: &lt;value&gt; ms.</Translation>
+      </Text>
+      <Text Id="__SingleUse_1H4C" Alignment="Left" TypographyId="Counter">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_QS3P" Alignment="Center" TypographyId="Counter">
+        <Translation Language="GB">Reakcijski čas: &lt;value&gt; ms</Translation>
+      </Text>
+    </TextGroup>
+  </Texts>
+  <Typographies>
+    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Counter" Font="verdana.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="123456789, ., a-z, A-Z" />
+    <Typography Id="title" Font="TCB_____.TTF" Size="17" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="text" Font="TCM_____.TTF" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+  </Typographies>
+</TextDatabase>

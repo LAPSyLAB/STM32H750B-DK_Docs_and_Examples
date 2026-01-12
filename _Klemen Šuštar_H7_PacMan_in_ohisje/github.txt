@@ -1,0 +1,2 @@
+Projekt je na voljo: https://github.com/Klemen2/OR-Projekt/tree/main/Pacman
+Poročilo na spletu: https://klemen2.github.io/OR-Projekt/
